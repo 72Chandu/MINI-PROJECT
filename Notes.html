@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Container for the notes app */
+        .app-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styling for the app title */
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Input field for adding notes */
+        .note-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        /* Buttons container styling */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* General button styling */
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* Notes container styling */
+        .notes {
+            margin-top: 20px;
+        }
+
+        /* Individual note styling */
+        .note {
+            position: relative;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Highlight styles for different colors */
+        .note-text span.highlight-yellow {
+            background-color: #fffccf;
+        }
+
+        .note-text span.highlight-blue {
+            background-color: #cfe7ff;
+        }
+
+        .note-text span.highlight-green {
+            background-color: #d4f8d4;
+        }
+
+        /* Action buttons container (top-right corner of each note) */
+        .note-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+        }
+
+        /* Highlight options dropdown */
+        .highlight-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Show action buttons when hovering over a note */
+        .note:hover .note-actions {
+            display: block;
+            /* Makes the buttons visible */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <h1>Notes App</h1>
+        <textarea id="noteInput" class="note-input" placeholder="Write your note here..."></textarea>
+        <div class="buttons">
+            <button onclick="addNote()">Add Note</button>
+        </div>
+        <div class="notes" id="notes"></div>
+    </div>
+
+    <script>
+        // Function to save notes to local storage
+        function saveNotesToLocalStorage(notes) {
+            localStorage.setItem('notes', JSON.stringify(notes)); // Save notes as a JSON string
+        }
+
+        // Function to get notes from local storage
+        function getNotesFromLocalStorage() {
+            const notes = localStorage.getItem('notes');
+            return notes ? JSON.parse(notes) : []; // Parse notes or return an empty array
+        }
+
+        // Function to render notes from local storage
+        function renderNotes() {
+            const notes = getNotesFromLocalStorage();
+            const notesContainer = document.getElementById('notes');
+            notesContainer.innerHTML = ''; // Clear existing notes
+
+            notes.forEach(note => {
+                createNoteElement(note.text, note.highlights || []);
+            });
+        }
+
+        // Function to create a note element and add it to the DOM
+        function createNoteElement(noteText, highlights = []) {
+            const notesContainer = document.getElementById('notes');
+            const noteElement = document.createElement('div');
+            noteElement.classList.add('note');
+
+            const noteTextElement = document.createElement('div');
+            noteTextElement.classList.add('note-text');
+
+            // Restore highlighted spans if any
+            noteTextElement.innerHTML = highlights.length > 0
+                ? highlights.map(h => `<span class="${h.className}">${h.text}</span>`).join('')
+                : noteText;
+
+            const noteActions = document.createElement('div');
+            noteActions.classList.add('note-actions');
+
+            const highlightButton = document.createElement('button');
+            highlightButton.textContent = 'Highlight';
+            highlightButton.onclick = function () {
+                toggleVisibility(highlightOptions);
+            };
+
+            const highlightOptions = document.createElement('div');
+            highlightOptions.classList.add('highlight-options');
+
+            const highlightYellowButton = document.createElement('button');
+            highlightYellowButton.textContent = 'Yellow';
+            highlightYellowButton.onclick = function () {
+                applyHighlight(noteTextElement, 'highlight-yellow');
+            };
+
+            const highlightBlueButton = document.createElement('button');
+            highlightBlueButton.textContent = 'Blue';
+            highlightBlueButton.onclick = function () {
+                applyHighlight(noteTextElement, 'highlight-blue');
+            };
+
+            const highlightGreenButton = document.createElement('button');
+            highlightGreenButton.textContent = 'Green';
+            highlightGreenButton.onclick = function () {
+                applyHighlight(noteTextElement, 'highlight-green');
+            };
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.onclick = function () {
+                const currentText = Array.from(noteTextElement.childNodes)
+                    .map(node => node.nodeType === 3 ? node.nodeValue : node.textContent)
+                    .join('');
+
+                const newText = prompt('Edit your note:', currentText);
+                if (newText !== null) {
+                    noteTextElement.innerHTML = newText;
+                    updateLocalStorage();
+                }
+            };
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function () {
+                notesContainer.removeChild(noteElement);
+                updateLocalStorage();
+            };
+
+            highlightOptions.appendChild(highlightYellowButton);
+            highlightOptions.appendChild(highlightBlueButton);
+            highlightOptions.appendChild(highlightGreenButton);
+
+            noteActions.appendChild(highlightButton);
+            noteActions.appendChild(highlightOptions);
+            noteActions.appendChild(editButton);
+            noteActions.appendChild(deleteButton);
+
+            noteElement.appendChild(noteTextElement);
+            noteElement.appendChild(noteActions);
+
+            notesContainer.appendChild(noteElement);
+
+            updateLocalStorage();
+        }
+
+        // Function to toggle the visibility of the highlight options
+        function toggleVisibility(element) {
+            element.style.display = element.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Function to apply highlight to selected text
+        function applyHighlight(element, highlightClass) {
+            const selection = window.getSelection();
+            const selectedText = selection.toString();
+
+            if (!selectedText) {
+                alert('Please select text to highlight.');
+                return;
+            }
+
+            const range = selection.getRangeAt(0);
+            const span = document.createElement('span');
+            span.className = highlightClass;
+            span.textContent = selectedText;
+
+            range.deleteContents();
+            range.insertNode(span);
+            selection.removeAllRanges();
+
+            updateLocalStorage();
+        }
+
+        // Function to update local storage with the current notes
+        function updateLocalStorage() {
+            const notesContainer = document.getElementById('notes');
+            const notes = Array.from(notesContainer.children).map(noteElement => {
+                const textNode = noteElement.querySelector('.note-text');
+                const highlights = Array.from(textNode.childNodes).map(node => {
+                    if (node.nodeType === 3) { // Plain text
+                        return { text: node.nodeValue, className: '' };
+                    } else { // Highlighted span
+                        return { text: node.textContent, className: node.className };
+                    }
+                });
+                return { text: textNode.textContent, highlights };
+            });
+
+            saveNotesToLocalStorage(notes);
+        }
+
+        // Add a new note
+        function addNote() {
+            const noteInput = document.getElementById('noteInput');
+            const noteText = noteInput.value.trim();
+
+            if (noteText === '') {
+                alert('Please enter a note.');
+                return;
+            }
+
+            createNoteElement(noteText);
+            noteInput.value = '';
+        }
+
+        // Load notes on page load
+        window.onload = function () {
+            renderNotes();
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+body{
+    background-color: aliceblue;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+nav{
+    font-family: 'ubuntu',sans-serif;
+}
+nav ul{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    height: 65px;
+    color: white;
+    background-color: black;
+}
+.search-button {
+    background: white;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    align-items: center;
+    height: 20px;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}
+.logo img{
+    width: 44px;
+    padding: 0 50px;
+}
+nav ul li{
+    padding: 0 20px;
+}
+.search-input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex-grow: 1;
+    padding: 5px;
+    width: 289px;
+}

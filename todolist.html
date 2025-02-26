@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #todo-list li {
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+        .button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <input type="text" id="task-input" placeholder="Enter a new task">
+    <button onclick="addTask()">Add Task</button>
+    <button onclick="clearTasks()">Clear All</button>
+    <ul id="todo-list"></ul>
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        function addTask() {
+            const taskInput = document.getElementById('task-input');
+            const taskText = taskInput.value.trim();
+            if (taskText) {
+                tasks.push(taskText);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                taskInput.value = '';
+                renderTasks();
+            }
+        }
+
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function updateTask(index) {
+            const newTaskText = prompt('Update task:', tasks[index]);
+            if (newTaskText !== null && newTaskText.trim() !== '') {
+                tasks[index] = newTaskText.trim();
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                renderTasks();
+            }
+        }
+
+        function clearTasks() {
+            tasks = [];
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function getAllTasks() {
+            return tasks;
+        }
+
+        function renderTasks() {
+            const todoList = document.getElementById('todo-list');
+            todoList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.textContent = task;
+                
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'button';
+                deleteButton.onclick = () => deleteTask(index);
+                
+                const updateButton = document.createElement('button');
+                updateButton.textContent = 'Update';
+                updateButton.className = 'button';
+                updateButton.onclick = () => updateTask(index);
+                
+                li.appendChild(deleteButton);
+                li.appendChild(updateButton);
+                todoList.appendChild(li);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', renderTasks);
+    </script>
+</body>
+</html>

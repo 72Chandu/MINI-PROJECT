@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: brown;
+    overflow: hidden;/*to remove the horizental scroll bar*/
+}
+#scorecont{
+    color: aliceblue;
+}
+.gamecontainer{
+    background-image: url(pxfuel.jpg);
+    background-repeat: non-repeat;
+    background-size: 100vw 100vh;
+    width: 100%;
+    height: 100vh;
+}
+.dino{/*relative->orignal position se idher udher hila saktey hai
+    or absolute->hele ga w.r.t parent ele jo absolute hoga*/
+    background-image: url(dyno.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 166px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 12px;
+}
+.obstacles{
+    background-image: url(dyno.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 166px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left:50%;
+}
+.animatedino{
+    animation: dino 0.6s linear;
+}
+.obstaclesAni{
+    animation: obstaclesAni 5s linear infinite;
+}
+@keyframes dino{  /* for animation on dyno class*/
+    0%{
+        bottom: 0;
+    }
+    50%{
+        bottom: 422px;
+    }
+    100%{
+        bottom: 0;
+    }
+    
+}
+@keyframes obstaclesAni {
+    0%{
+left: 100vw;
+    }
+    100%{
+        left: -10vw;
+    }
+}
+.gameover{
+    top: 63px;
+    font-size: 53px;
+    text-align: center;
+    position: relative;
+}

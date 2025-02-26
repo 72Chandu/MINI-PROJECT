@@ -1,0 +1,21 @@
+td{
+    height: 100px;
+    width: 100px;
+}
+.vertical{
+    border-left: 5px solid green;
+    border-right: 5px solid green;
+}
+.horizetal{
+    border-top: 5px solid green;
+    border-bottom: 5px solid green;
+}
+h1{
+    text-align: center;
+}
+table{
+    margin: auto;
+}
+td:hover{
+    border: 1px solid red;
+}

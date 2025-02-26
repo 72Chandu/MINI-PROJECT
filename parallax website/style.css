@@ -1,0 +1,62 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-size: 16px;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 1.8em;
+    color: hsl(136, 82%, 48%);
+}
+
+.ping1 {
+    background-image: url(wp2722928.jpg);
+    min-height: 100vh; /* Set min-height to cover the full viewport height */
+}
+
+.ping2 {
+    background-image: url(nature-images..jpg);
+    min-height: 100vh; /* Set min-height to cover the full viewport height */
+}
+
+.ping3 {
+    background-image: url(R.jpg);
+    min-height: 100vh; /* Set min-height to cover the full viewport height */
+}
+
+.ping1, .ping2, .ping3 {
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;/*image fix ho jayaga or rest sab scroll karega when you scro*/
+}
+
+.ptext {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center vertically and horizontally */
+    width: 100%;
+    text-align: center;
+    color: black;
+    font-size: 27px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+}
+
+.textbg {
+    color: white;
+    padding: 20px;
+}
+.section{
+    padding:50px 80px ;
+    text-align: center;
+}
+.section-light{
+    background-color: aliceblue;
+    color: brown;
+}
+.section-dark{
+    background-color: aliceblue;
+    color: brown;
+}

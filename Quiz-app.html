@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'poppins',sans-serif;
+        box-sizing: border-box;
+    }
+    body{
+        background: #001e4d;
+    }
+    .app{
+       background: #fff;
+       width: 90%;
+       max-width: 600px;
+       margin: 100px auto 0;
+       border-radius: 10px;
+       padding: 30px;
+    }
+    .app h1{
+        font-size: 25px;
+        color: #001e4d;
+        font-weight: 600;
+        border-bottom: 1px solid #333;
+        padding-bottom: 30px;
+    }
+    .quiz{
+        padding: 20px 0;
+    }
+    .quiz h2{
+        font-size: 18px;
+        color: #001e4d;
+        font-weight: 600;
+    }
+    .btn{
+        width: 100%;
+        background: #fff;
+        color: #222;
+        font-weight: 500;
+        border: 1px solid #222;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: left;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .btn:hover:not([disabled]){
+        background: #222;
+        color: #fff;
+    }
+    .btn:disabled{
+        cursor: no-drop;
+    }
+    #next-btn{
+        background: #001e4d;
+        color: #fff;
+        font-weight: 500;
+        width: 150px;
+        border: 0;
+        padding: 10px;
+        margin: 20px auto 0;
+        border-radius: 4px;
+        cursor: pointer;
+        display: none;/*button will be show when you select the answer*/
+    }
+    .correct{
+        background: #9aeabc;
+    }
+    .incorrect{
+        background:#ff9393 ;
+    }
+</style>
+<body>
+    <div class="app">
+        <h1>Simple Quiz</h1>
+        <div class="quiz">
+            <h2 id="question">Question goes here</h2>
+            <div id="answer-buttons">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const question=[
+            {
+                question:"which is largest animal in the world",
+                answer:[
+                    {text:"shark",correct:false},
+                    {text:"Blue whale",correct:true},
+                    {text:"Elephant",correct:false},
+                    {text:"Giraffe",correct:false},
+                ]
+            },
+            {
+                question:"which is largest animal in the world",
+                answer:[
+                    {text:"shark",correct:false},
+                    {text:"Blue whale",correct:true},
+                    {text:"Elephant",correct:false},
+                    {text:"Giraffe",correct:false},
+                ]
+            },
+            {
+                question:"which is largest animal in the world",
+                answer:[
+                    {text:"shark",correct:false},
+                    {text:"Blue whale",correct:true},
+                    {text:"Elephant",correct:false},
+                    {text:"Giraffe",correct:false},
+                ]
+            },
+            {
+                question:"which is smallest continent in the world",
+                answer:[
+                    {text:"Asia",correct:false},
+                    {text:"Australia",correct:true},
+                    {text:"Arctic",correct:false},
+                    {text:"Africa",correct:false},
+                ]
+            }
+        ];
+        const questionElement=document.getElementById("question");
+        const answerButtons=document.getElementById("answer-buttons");
+        const nextButtons=document.getElementById("next-btn");
+        let currentQuestionIndex=0;
+        let score=0;
+        function startQuiz(){
+            currentQuestionIndex=0;
+            score=0;
+            nextButtons.innerHTML="Next";
+            ShowQuestion();
+        }
+        function ShowQuestion(){
+            resetState();
+            let currQuestion=question[currentQuestionIndex];
+            let questionNo=currentQuestionIndex+1;
+            questionElement.innerHTML=questionNo+". "+currQuestion.question;
+
+            currQuestion.answer.forEach(answer=>{
+                const button=document.createElement("button");
+                button.innerHTML=answer.text;
+                button.classList.add("btn");
+                answerButtons.appendChild(button);
+
+                if(answer.correct){
+                    button.dataset.correct=answer.correct;
+                }
+                button.addEventListener("click",selectAnswer);
+            });
+        }
+
+        function resetState(){
+            nextButtons.style.display="none";
+            while(answerButtons.firstChild){
+                answerButtons.removeChild(answerButtons.firstChild);
+            }
+        }
+
+        function selectAnswer(e){
+            const selectbtn=e.target;
+            const iscorrect=selectbtn.dataset.correct==="true";
+            if(iscorrect){
+                selectbtn.classList.add("correct");
+                score++;
+            }else{
+                selectbtn.classList.add("incorrect");
+            }
+            
+            Array.from(answerButtons.children).forEach(button=>{
+                if(button.dataset.correct==="true"){
+                    button.classList.add("correct");
+                }
+                button.disabled=true;
+            });
+            nextButtons.style.display="block";
+        }
+
+        function showScore(){
+            resetState();
+            questionElement.innerHTML=`you scored ${score*5} out of ${question.length*5}!`;
+            nextButtons.innerHTML="play Again";
+            nextButtons.style.display="block"
+        }
+
+        function handelNextButton(){
+            currentQuestionIndex++;
+            if(currentQuestionIndex<question.length){
+                ShowQuestion();
+            }else{
+                showScore();
+            }
+        }
+
+        nextButtons.addEventListener("click",()=>{
+            if(currentQuestionIndex<question.length){
+                handelNextButton();
+            }else{
+                startQuiz();
+            }
+        })
+        startQuiz();
+    </script>
+</body>
+</html>

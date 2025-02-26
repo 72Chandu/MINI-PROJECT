@@ -1,0 +1,45 @@
+h1{
+    text-align:center;
+}
+
+td{
+width: 70px;
+height: 70px;
+background: red;
+border: 5px solid white;
+}
+.tab{
+    margin: auto;
+}
+
+#one{
+    background: #9400D3;
+}
+#two{
+    background: #9400D3;
+}
+#three{
+    background: #9400D3;
+}
+#four{
+    background: #9400D3;
+}
+#five{
+    background: #9400D3;
+}
+#six{
+    background: #9400D3;
+}
+#seven{
+    background: #9400D3;
+}
+#black{
+    background: black;
+}
+#white{
+    background: white;
+}
+table{
+    border: 2px solid black;
+    margin: auto;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registration form</title>
+</head>
+<body>
+    <h1>Registration form</h1>
+    <p>all field are mandatory</p>
+    <form action="tanku.html">
+        <label for="name">Name:</label>
+        <input id="name" type="text" name="username" value="" placeholder="enter name" required><br><br>
+
+        <label for="email">Email id:</label>
+        <input id="email" type="email" name="email" value="" placeholder="enter email" required><br><br>
+        
+        <label for="age">Age:</label>
+        <input id="age" type="text" name="age" value="" placeholder="enter age" required><br><br>
+         
+        <h2>Are you intrested in dating</h2>
+        <label for="yes">yes</label>
+        <input id="yes" type="radio" name="dating" value="yes">
+
+        <label for="No">No</label>
+        <input id="No" type="radio" name="dating" value="No">
+ 
+        <h2>Your Expaction Like</h2>
+        <select name="n">
+            <option value="Katrina">Katrina kafe</option>
+            <option value="sunny">sunny leon</option>
+            <option value="malika">malika</option>
+            <option value="aiswary">aiswary</option>
+        </select><br><br>
+
+        <h2>how many marriage you want</h2>
+        <select name="n">
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+            <option value="four">4</option>
+        </select><br><br>
+
+        <h2>Are you alocholic</h2>
+        <input type="checkbox" name="alocholic" value="yes">yes
+        <input type="checkbox" name="alocholic" value="no">No
+        <input type="checkbox" name="alocholic" value="wekend">wekend<br><br>
+         
+        <h2>Your prefrance and Extra information</h2>
+        <textarea name="Extrainfo" rows="8" cols="80"></textarea>
+
+        <input type="submit" name="Register" value="Register"> 
+    </form>
+</body>
+</html>

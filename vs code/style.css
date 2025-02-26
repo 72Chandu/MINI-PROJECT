@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* Header styling */
+  .header {
+    color: white;
+    padding: 10px 112px;
+  }
+  
+  .header .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .header img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .header h4 {
+    margin: 0 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: black;
+  }
+  
+  .header h4:hover {
+    color: #58a6ff;
+  }
+  
+  .header .searchbox {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  .header .searchbox i {
+    color: gray;
+    margin: 0 5px;
+  }
+  
+  .header .searchbox input[type="search"] {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+  }
+  
+  .header .searchbox button {
+    background-color: #238636;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .header .searchbox button:hover {
+    background-color: #2ea043;
+  }
+  
+  /* Mid section styling */
+  .mid {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: white;
+  }
+  
+  .mid .txt h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #24292e;
+  }
+  
+  .mid .txt h2 {
+    font-size: 20px;
+    margin: 5px 0;
+    color: #6a737d;
+  }
+  
+  .mid .btn {
+    margin: 20px 0;
+  }
+  
+  .mid .btn button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #0078d7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .mid .btn button:hover {
+    background-color: #005fa1;
+  }
+  
+  .mid span h7 {
+    font-size: 14px;
+    color: #6a737d;
+  }
+  
+  /* Image styling */
+  body img {
+    display: block;
+    max-width: 85%;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
