@@ -1,27 +1,24 @@
-class pasword{
-    constructor(){
-        console.log("welcom to password genrator");
-        this.pass=""
+const passwordBox=document.getElementById('password');
+const length=12
+const upperCase="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const lowerCase="abcdefghijklmnopqrstuvwxyz";
+const number="123456789";
+const symbol="!@#$&*()";
+const allChars=upperCase+lowerCase+number+symbol;
+function createPassword(){
+    let password="";
+    password+=upperCase[Math.floor(Math.random()*upperCase.length)];
+    password+=lowerCase[Math.floor(Math.random()*lowerCase.length)];
+    password+=number[Math.floor(Math.random()*number.length)];
+    password+=symbol[Math.floor(Math.random()*symbol.length)];
+
+    while(length > password.length){
+        password+=allChars[Math.floor(Math.random()*allChars.length)];
     }
-    genrator(len){
-        let chars="abcdefghijklmnopqrstuvwxyz";
-        let number="123456789";
-        let spacial="!@#$&*()";
-        if(len<3){
-            console.log("your password shold be atlest 3 charcter lon");
-        }
-        else{
-            let i=0;
-            while(i<len){
-                this.pass+=chars[Math.floor(Math.random()*chars.length)]
-                this.pass+=number[Math.floor(Math.random()*number.length)]
-                this.pass+=spacial[Math.floor(Math.random()*spacial.length)]
-                i+=3
-            }
-            this.pass=this.pass.substr(0,len);
-            return this.pass;
-        }
-    }
+    passwordBox.value=password
 }
-let p=new pasword()
-console.log(p.genrator(7));
+function copyPassword(){
+    passwordBox.select();
+    document.execCommand('copy')
+}
+        

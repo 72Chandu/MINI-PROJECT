@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>password genrator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    password genrator
+   <div class="container">
+    <h1>Generate a <br> <span> Random Password</span></h1>
+    <div class="display">
+        <input type="text" id="password" placeholder="password">
+        <img onclick="copyPassword()" src="images/copy.png" alt="img...">
+    </div>
+    <button onclick="createPassword()"><img src="images/generate.png" alt="img...">Generate Password</button>
+   </div>
     <script src="script.js"></script>
 </body>
 </html>
